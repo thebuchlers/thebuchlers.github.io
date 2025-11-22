@@ -105,21 +105,23 @@ export default function Buchlers() {
           Keeping up with The Buchlers
         </h1>
 
-<p
-  style={{
-    fontSize: "18px",
-    color: "#ccc",
-    lineHeight: "1.6",
-    marginBottom: "32px",
-  }}
->
-  <strong>Keeping Up with the Buchlers</strong> follows the chaotic, funny, and
-  heartwarming lives of the Buchler family in Louisville, Colorado—
-  <strong>Matt</strong>, his Finnish chess-champion wife <strong>Mervi</strong>,
-  their kids <strong>Matthew</strong>, <strong>Laila</strong>, and
-  <strong> Lissy</strong>, plus the adventurous grandparents,
-  <strong> Granny</strong> and <strong>Bob</strong>.
-</p>
+        <p
+          style={{
+            fontSize: "18px",
+            color: "#ccc",
+            lineHeight: "1.6",
+            marginBottom: "32px",
+          }}
+        >
+          <strong>Keeping Up with the Buchlers</strong> follows the chaotic,
+          funny, and heartwarming lives of the Buchler family in Louisville,
+          Colorado—
+          <strong>Matt</strong>, his Finnish chess-champion wife{" "}
+          <strong>Mervi</strong>, their kids <strong>Matthew</strong>,{" "}
+          <strong>Laila</strong>, and
+          <strong> Lissy</strong>, plus the adventurous grandparents,
+          <strong> Granny</strong> and <strong>Bob</strong>.
+        </p>
 
         <h2
           style={{ fontSize: "26px", fontWeight: "600", marginBottom: "12px" }}
