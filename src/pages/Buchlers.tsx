@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Buchlers() {
+const Buchlers = () => {
   const seasons = [
     {
       id: 1,
@@ -257,3 +257,5 @@ export default function Buchlers() {
     </div>
   );
 }
+
+export default Buchlers
