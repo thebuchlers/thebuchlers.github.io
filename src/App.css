@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+
+
+/* ============================================================================
+ * Base styles for React Dashboard Layout
+ * ============================================================================ */
+
+/* 1. Root and App Fullscreen Layout */
+html,
+body,
+#root {
+  -webkit-font-smoothing: antialiased;
+}
+
