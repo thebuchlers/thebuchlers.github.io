@@ -42,7 +42,7 @@ function App() {
         <main className="relative">
           <div className="relative h-[65vh] md:h-[75vh] lg:h-[85vh]">
             <img
-              src="/assets/hero2.png"
+              src="./assets/hero2.png"
               alt="hero"
               className="w-full h-full object-cover brightness-[0.6] contrast-110 saturate-125"
             />
@@ -111,10 +111,10 @@ function App() {
                                  bg-gray-800 rounded-md overflow-hidden flex items-center justify-center"
                     >
                       <img
-                        src={`/assets/thumb-${i}.png`}
-                        alt={`thumb-${i}`}
+                        src={`./assets/thumb-${i}.png`}
+                        alt={`thumb12-${i}`}
                         className="w-full h-full object-cover object-center"
-                      />
+                      /> 
                     </div>
                     <div className="mt-2 text-sm text-gray-300 text-center">
                       {SHOWS[i]}

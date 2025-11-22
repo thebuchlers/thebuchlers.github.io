@@ -1,9 +1,9 @@
 {
-  "name": "netflix-clone",
+  "name": "netflix",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://buchlers.github.io",
+  "homepage": "https://thebuchlers.github.io",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
