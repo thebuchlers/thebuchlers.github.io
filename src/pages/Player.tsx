@@ -1,4 +1,5 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Player = () => {
   const navigate = useNavigate();
@@ -7,18 +8,78 @@ const Player = () => {
   const season = searchParams.get("season");
   const episode = searchParams.get("episode");
 
-  // Example: Map episodes to YouTube URLs
+  const [signedUrl, setSignedUrl] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
   const videoMap: Record<string, string> = {
-    "1-1": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "1-2": "https://www.youtube.com/embed/3JZ_D3ELwOQ",
-    "1-3": "https://www.youtube.com/embed/tVj0ZTS4WF4",
-    "2-1": "https://www.youtube.com/embed/fJ9rUzIMcZQ",
-    "2-2": "https://www.youtube.com/embed/9bZkp7q19f0",
-    "2-3": "https://www.youtube.com/embed/l482T0yNkeo",
+    "1-1": "test-video-file.mp4",
+    "1-2": "test-video-file.mp4",
+    "1-3": "test-video-file.mp4",
+    "2-1": "test-video-file.mp4",
+    "2-2": "test-video-file.mp4",
+    "2-3": "test-video-file.mp4",
   };
 
   const key = `${season}-${episode}`;
-  const videoUrl = videoMap[key];
+  const videoKey = videoMap[key];
+
+  useEffect(() => {
+    const loadVideo = async () => {
+      if (!videoKey) {
+        setError("Video not found.");
+        return;
+      }
+
+      const sessionToken = localStorage.getItem("turnstile_session");
+
+      // No session → redirect to verify
+      if (!sessionToken) {
+        navigate(
+          `/verify?redirect=${encodeURIComponent(
+            location.pathname + location.search
+          )}`
+        );
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `https://thebuchlers.jonathon-mcnabb1.workers.dev/get-video?key=${videoKey}`,
+          {
+            method: "GET",
+            headers: {
+              "Session-Token": sessionToken,
+            },
+          }
+        );
+
+        // If session expired or invalid → wipe and redirect
+        if (res.status === 401) {
+          localStorage.removeItem("turnstile_session");
+          navigate(
+            `/verify?redirect=${encodeURIComponent(
+              location.pathname + location.search
+            )}`
+          );
+          return;
+        }
+
+        if (!res.ok) {
+          setError("Failed to load video.");
+          return;
+        }
+
+        const data = await res.json();
+        setSignedUrl(data.url);
+      } catch (err) {
+        setError("Network error loading video.");
+        localStorage.removeItem("turnstile_session");
+        navigate(`/`);
+      }
+    };
+
+    loadVideo();
+  }, [videoKey, navigate, location.pathname, location.search]);
 
   return (
     <div
@@ -52,17 +113,26 @@ const Player = () => {
         ← Back
       </button>
 
-      {/* Simple YouTube Player */}
-      <iframe
-        src={videoUrl + "?autoplay=1&controls=1"}
-        allow="autoplay; encrypted-media"
-        style={{
-          width: "90vw",
-          height: "50vw",
-          maxHeight: "80vh",
-          border: "none",
-        }}
-      ></iframe>
+      {/* Loading / Error UI */}
+      {!signedUrl && !error && (
+        <p style={{ color: "white", fontSize: "24px" }}>Loading…</p>
+      )}
+      {error && <p style={{ color: "red", fontSize: "24px" }}>{error}</p>}
+
+      {/* Video Player */}
+      {signedUrl && (
+        <video
+          src={signedUrl}
+          controls
+          autoPlay
+          style={{
+            width: "90vw",
+            height: "50vw",
+            maxHeight: "80vh",
+            border: "none",
+          }}
+        />
+      )}
     </div>
   );
 };
