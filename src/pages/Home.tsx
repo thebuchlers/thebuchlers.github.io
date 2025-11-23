@@ -34,12 +34,22 @@ const Home = () => {
                 <h2 className="text-4xl md:text-6xl font-semibold tracking-wide mb-4 drop-shadow-lg">
                   Keeping Up with the Buchlers
                 </h2>
-                <p className="text-gray-200 max-w-xl mb-6 leading-relaxed">
-                  A laugh-out-loud journey through decades of Buchler family
-                  camcorder chaos. From backyard birthday parties to accidental
-                  dance-offs, this nostalgic “mock sitcom” turns real home
-                  videos into heartwarming comedy. No script — just pure,
-                  unfiltered Buchler energy.
+                <p
+                  style={{
+                    fontSize: "18px",
+                    color: "#ccc",
+                    lineHeight: "1.6",
+                    marginBottom: "32px",
+                  }}
+                >
+                  <strong>Keeping Up with the Buchlers</strong> follows the
+                  chaotic, funny, and heartwarming lives of the Buchler family
+                  in Louisville, Colorado—
+                  <strong>Matt</strong>, his Finnish chess-champion wife{" "}
+                  <strong>Mervi</strong>, their kids <strong>Matthew</strong>,{" "}
+                  <strong>Laila</strong>, and
+                  <strong> Lissy</strong>, plus the adventurous grandparents,
+                  <strong> Granny</strong> and <strong>Bob</strong>.
                 </p>
 
                 <div className="flex gap-3">
