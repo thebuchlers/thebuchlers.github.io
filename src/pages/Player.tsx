@@ -30,25 +30,14 @@ const Player = () => {
         return;
       }
 
-      const sessionToken = localStorage.getItem("turnstile_session");
-
-      // No session → redirect to verify
-      if (!sessionToken) {
-        navigate(
-          `/verify?redirect=${encodeURIComponent(
-            location.pathname + location.search
-          )}`
-        );
-        return;
-      }
-
       try {
+        const token = localStorage.getItem("auth_token");
         const res = await fetch(
           `https://thebuchlers.jonathon-mcnabb1.workers.dev/get-video?key=${videoKey}`,
           {
             method: "GET",
             headers: {
-              "Session-Token": sessionToken,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -56,11 +45,6 @@ const Player = () => {
         // If session expired or invalid → wipe and redirect
         if (res.status === 401) {
           localStorage.removeItem("turnstile_session");
-          navigate(
-            `/verify?redirect=${encodeURIComponent(
-              location.pathname + location.search
-            )}`
-          );
           return;
         }
 

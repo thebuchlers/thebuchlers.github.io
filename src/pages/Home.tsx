@@ -17,29 +17,6 @@ const Home = () => {
   return (
     <>
       <div className="min-h-screen bg-black text-white font-sans">
-        {/* Top nav */}
-        <header className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-6">
-            <div className="text-red-600 font-bold text-2xl tracking-wider">
-              NETFLIX
-            </div>
-            <nav className="hidden md:flex gap-4 text-sm text-gray-200">
-              <a href="#" className="hover:underline">
-                Home
-              </a>
-              <a href="#" className="hover:underline">
-                TV Shows
-              </a>
-              <a href="#" className="hover:underline">
-                Movies
-              </a>
-              <a href="#" className="hover:underline">
-                My List
-              </a>
-            </nav>
-          </div>
-        </header>
-
         {/* Hero */}
         <main className="relative">
           <div className="relative h-[65vh] md:h-[75vh] lg:h-[85vh]">

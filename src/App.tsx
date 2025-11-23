@@ -2,41 +2,26 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Buchlers from "./pages/Buchlers";
 import Player from "./pages/Player";
-import VerifyPage from "./pages/VerifyPage";
-import ProtectedRoute from "./components/ProtectedRoute";
+import LoginPage from "./pages/Login";
+import AppLayout from "./layouts/AppLayout";
 import "./App.css";
 
 const App = () => {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/keeping-up-with-the-buchlers"
-        element={
-          <ProtectedRoute>
-            <Buchlers />
-          </ProtectedRoute>
-        }
-      />
+      {/* Public route (no layout) */}
+      <Route path="/login" element={<LoginPage />} />
 
-      {/* require Turnstile verification before /watch */}
+      {/* Protected routes wrapped in AppLayout */}
       <Route
-        path="/watch"
         element={
-          <ProtectedRoute>
-            <Player />
-          </ProtectedRoute>
+            <AppLayout />
         }
-      />
-
-      <Route path="/verify" element={<VerifyPage />} />
+      >
+        <Route path="/" element={<Home />} />
+        <Route path="/keeping-up-with-the-buchlers" element={<Buchlers />} />
+        <Route path="/watch" element={<Player />} />
+      </Route>
     </Routes>
   );
 };

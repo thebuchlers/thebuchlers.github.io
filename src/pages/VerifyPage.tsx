@@ -26,6 +26,9 @@ const VerifyPage = () => {
       // Save the new Turnstile session token
       localStorage.setItem("turnstile_session", data.sessionToken);
 
+      // Save timestamp for expiration check
+      localStorage.setItem("turnstile_timestamp", Date.now().toString());
+
       // Redirect user to original location (or fallback)
       const params = new URLSearchParams(location.search);
       const redirectTo = params.get("redirect") || "/";
