@@ -17,7 +17,7 @@ const Home = () => {
 
   const images = Array.from(
     { length: 14 },
-    (_, i) => `/assets/scrolling/${i + 1}.png`
+    (_, i) => `/assets/scrolling/${i + 1}.webp`
   ).sort(() => Math.random() - 0.5);
 
   return (
