@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // UI State
   const [username, setUsername] = useState("");
@@ -10,8 +11,12 @@ const LoginPage = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // 🚀 Ref to track whether auto-login should occur
+  const shouldAutoLogin = useRef(false);
+
+  const handleLogin = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
     setErrorMsg(null);
     setLoading(true);
 
@@ -33,7 +38,6 @@ const LoginPage = () => {
         return;
       }
 
-      // Save user session
       localStorage.setItem("auth_token", data.accessToken);
       localStorage.setItem("user_name", username);
       localStorage.setItem("auth_issued_at", Date.now().toString());
@@ -47,26 +51,68 @@ const LoginPage = () => {
     }
   };
 
+  // 1️⃣ Load query params only once
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const qpUser = params.get("username");
+    const qpPass = params.get("password");
+
+    if (qpUser) setUsername(qpUser);
+    if (qpPass) setPassword(qpPass);
+
+    // If both exist → mark autologin for the NEXT render only
+    if (qpUser && qpPass) {
+      shouldAutoLogin.current = true;
+    }
+  }, [location.search]);
+
+  // 2️⃣ Auto login after state updates BUT only if QR login was requested
+  useEffect(() => {
+    if (shouldAutoLogin.current && username && password) {
+      shouldAutoLogin.current = false; // prevent future triggers
+      handleLogin();
+    }
+  }, [username, password]);
+
   return (
-    <div className="relative min-h-screen  text-white font-sans flex items-center justify-center">
-      {/* Background Image + Dark Gradient */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src="/assets/login-bg.png"
-          alt="login-bg"
-          className="w-full h-full object-cover brightness-[0.7]"
-        />
-        <div className="absolute inset-0 bg-black/10" />
-      </div>
+    <div className="relative min-h-screen text-white font-sans flex items-center justify-center overflow-hidden">
+      {/* BACKGROUND LAYERS */}
+      <div className="absolute inset-0 -z-10 bg-black" />
+
+      {/* Vertical gradient (black → red tint) */}
+      <div className="absolute inset-0 -z-10 bg-linear-to-b from-black via-black to-red-950/30" />
+
+      {/* Main red spotlight */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[650px] h-[650px] rounded-full bg-red-900/25 blur-[220px]" />
+
+      {/* Extra bloom ring */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[850px] h-[850px] rounded-full bg-red-700/10 blur-[300px]" />
+
+      {/* Vignette */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0)_40%,rgba(0,0,0,0.8)_100%)]" />
+
+      {/* Grain */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.05] bg-[url('/assets/noise.png')] mix-blend-overlay" />
 
       {/* Login Card */}
-      <div className="relative z-10 w-full max-w-md bg-black/70 p-10 rounded-lg shadow-xl border border-white/10">
-        
-        <div
-            className="flex justify-center text-red-600 font-bold text-4xl tracking-wide mb-6"
-          >
-            NETFLIX
-          </div>
+      <div
+        className="
+          relative z-10 w-full max-w-md 
+          bg-white/5 
+          backdrop-blur-xl 
+          p-10 
+          rounded-xl 
+          shadow-[0_0_40px_rgba(0,0,0,0.4)] 
+          border border-white/20
+          before:absolute before:inset-0 before:rounded-xl
+          before:bg-linear-to-b before:from-white/10 before:to-transparent
+          before:opacity-[0.15] before:-z-10
+        "
+      >
+        <div className="flex justify-center text-red-600 font-bold text-4xl tracking-wide mb-8 drop-shadow-lg">
+          NETFLIX
+        </div>
+
         <h1 className="text-3xl font-semibold mb-6 text-center">Sign In</h1>
 
         {/* Error message */}
@@ -77,25 +123,22 @@ const LoginPage = () => {
         )}
 
         <form className="flex flex-col gap-4" onSubmit={handleLogin}>
-          {/* Username */}
           <input
             type="text"
             placeholder="Username"
-            className="bg-neutral-800 text-white px-4 py-3 rounded focus:ring-2 focus:ring-red-600 outline-none"
+            className="bg-neutral-800/60 text-white px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-red-600 transition border border-white/10"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
 
-          {/* Password */}
           <input
             type="password"
             placeholder="Password"
-            className="bg-neutral-800 text-white px-4 py-3 rounded focus:ring-2 focus:ring-red-600 outline-none"
+            className="bg-neutral-800/60 text-white px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-red-600 transition border border-white/10"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
