@@ -11,17 +11,7 @@ const Player = () => {
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const videoMap: Record<string, string> = {
-    "1-1": "test-video-file.mp4",
-    "1-2": "test-video-file.mp4",
-    "1-3": "test-video-file.mp4",
-    "2-1": "test-video-file.mp4",
-    "2-2": "test-video-file.mp4",
-    "2-3": "test-video-file.mp4",
-  };
-
-  const key = `${season}-${episode}`;
-  const videoKey = videoMap[key];
+  const videoKey = `${season}/${episode}`
 
   useEffect(() => {
     const loadVideo = async () => {

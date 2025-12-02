@@ -9,27 +9,62 @@ const Buchlers = () => {
       episodes: [
         {
           id: 1,
-          title: "Episode 1: The Beginning",
-          description: "A new chapter begins.",
-          image: "https://placehold.co/300x170?text=Episode+1",
+          title: "Episode 1 September 1999",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%201%20September%201999",
         },
         {
           id: 2,
-          title: "Episode 2: Reckoning",
-          description: "Conflicts rise.",
-          image: "https://placehold.co/300x170?text=Episode+2",
+          title: "Episode 2 October 1999",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%202%20October%201999",
         },
         {
           id: 3,
-          title: "Episode 3: The Betrayal",
-          description: "A shocking twist changes everything.",
-          image: "https://placehold.co/300x170?text=Episode+3",
+          title: "Episode 3 November 1999",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%203%20November%201999",
         },
         {
           id: 4,
-          title: "Episode 4: Hidden Truths",
-          description: "Secrets from the past come to light.",
-          image: "https://placehold.co/300x170?text=Episode+4",
+          title: "Episode 4 March 2000",
+          description: "Family video archive.",
+          image: "https://placehold.co/300x170?text=Episode%204%20March%202000",
+        },
+        {
+          id: 5,
+          title: "Episode 5 May 2000",
+          description: "Family video archive.",
+          image: "https://placehold.co/300x170?text=Episode%205%20May%202000",
+        },
+        {
+          id: 6,
+          title: "Episode 6 November 2000",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%206%20November%202000",
+        },
+        {
+          id: 7,
+          title: "Episode 7 February 2001",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%207%20February%202001",
+        },
+        {
+          id: 8,
+          title: "Episode 8 March 2001",
+          description: "Family video archive.",
+          image: "https://placehold.co/300x170?text=Episode%208%20March%202001",
+        },
+        {
+          id: 9,
+          title: "Episode 9 April 2001",
+          description: "Family video archive.",
+          image: "https://placehold.co/300x170?text=Episode%209%20April%202001",
         },
       ],
     },
@@ -39,27 +74,64 @@ const Buchlers = () => {
       episodes: [
         {
           id: 1,
-          title: "Episode 1: Return",
-          description: "A new chapter begins.",
-          image: "https://placehold.co/300x170?text=Episode+1",
+          title: "Episode 1 June 2001",
+          description: "Family video archive.",
+          image: "https://placehold.co/300x170?text=Episode%201%20June%202001",
         },
         {
           id: 2,
-          title: "Episode 2: Reckoning",
-          description: "Conflicts rise.",
-          image: "https://placehold.co/300x170?text=Episode+2",
+          title: "Episode 2 July 2001",
+          description: "Family video archive.",
+          image: "https://placehold.co/300x170?text=Episode%202%20July%202001",
         },
         {
           id: 3,
-          title: "Episode 3: Into the Fire",
-          description: "The Buchlers face their biggest challenge yet.",
-          image: "https://placehold.co/300x170?text=Episode+3",
+          title: "Episode 3 July 2001 (Pt 2)",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%203%20July%202001%20(pt%202)",
         },
         {
           id: 4,
-          title: "Episode 4: The Final Stand",
-          description: "Everything builds to an explosive showdown.",
-          image: "https://placehold.co/300x170?text=Episode+4",
+          title: "Episode 4 October 2001",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%204%20October%202001",
+        },
+        {
+          id: 5,
+          title: "Episode 5 October 2001 (Pt 2)",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%205%20October%202001%20(pt%202)",
+        },
+        {
+          id: 6,
+          title: "Episode 6 October 2001 (Pt 3)",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%206%20October%202001%20(pt%203)",
+        },
+        {
+          id: 7,
+          title: "Episode 7 November 2001",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%207%20November%202001",
+        },
+        {
+          id: 8,
+          title: "Episode 8 December 2001",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%208%20December%202001",
+        },
+        {
+          id: 9,
+          title: "Episode 9 December 2001 (Pt 2)",
+          description: "Family video archive.",
+          image:
+            "https://placehold.co/300x170?text=Episode%209%20December%202001%20(pt%202)",
         },
       ],
     },
@@ -256,6 +328,6 @@ const Buchlers = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Buchlers
+export default Buchlers;
