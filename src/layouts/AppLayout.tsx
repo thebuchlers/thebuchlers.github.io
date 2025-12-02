@@ -58,7 +58,7 @@ const AppLayout = () => {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       {/* Header */}
-      <header className="w-full bg-black/40 backdrop-blur-sm border-b border-white/10">
+      <header className="w-full bg-black/40 backdrop-blur-sm border-white/10">
         <div className="w-full flex items-center justify-between py-4 px-8">
           <div
             className="text-red-600 font-bold text-3xl tracking-wide cursor-pointer"
