@@ -5,25 +5,36 @@ const Player = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const season = searchParams.get("season");
-  const episode = searchParams.get("episode");
+  // Decode individual params safely
+  const encodedSeason = searchParams.get("season");
+  const encodedEpisode = searchParams.get("episode");
+
+  const season = encodedSeason ? decodeURIComponent(encodedSeason) : null;
+  const episode = encodedEpisode ? decodeURIComponent(encodedEpisode) : null;
+
+  // Re-construct decoded R2 key
+  const decodedKey = season && episode ? `${season}/${episode}` : null;
+
+  // Re-encode key for query string (required!)
+  const encodedKeyForAPI = decodedKey
+    ? encodeURIComponent(decodedKey)
+    : null;
 
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const videoKey = `${season}/${episode}`
-
   useEffect(() => {
     const loadVideo = async () => {
-      if (!videoKey) {
+      if (!encodedKeyForAPI) {
         setError("Video not found.");
         return;
       }
 
       try {
         const token = localStorage.getItem("auth_token");
+
         const res = await fetch(
-          `https://thebuchlers.jonathon-mcnabb1.workers.dev/get-video?key=${videoKey}`,
+          `https://thebuchlers.jonathon-mcnabb1.workers.dev/get-video?key=${encodedKeyForAPI}.mp4`,
           {
             method: "GET",
             headers: {
@@ -32,9 +43,9 @@ const Player = () => {
           }
         );
 
-        // If session expired or invalid → wipe and redirect
         if (res.status === 401) {
           localStorage.removeItem("turnstile_session");
+          navigate("/");
           return;
         }
 
@@ -45,15 +56,14 @@ const Player = () => {
 
         const data = await res.json();
         setSignedUrl(data.url);
-      } catch (err) {
+      } catch {
         setError("Network error loading video.");
-        localStorage.removeItem("turnstile_session");
-        navigate(`/`);
+        navigate("/");
       }
     };
 
     loadVideo();
-  }, [videoKey, navigate, location.pathname, location.search]);
+  }, [encodedKeyForAPI, navigate]);
 
   return (
     <div
@@ -87,13 +97,11 @@ const Player = () => {
         ← Back
       </button>
 
-      {/* Loading / Error UI */}
       {!signedUrl && !error && (
         <p style={{ color: "white", fontSize: "24px" }}>Loading…</p>
       )}
       {error && <p style={{ color: "red", fontSize: "24px" }}>{error}</p>}
 
-      {/* Video Player */}
       {signedUrl && (
         <video
           src={signedUrl}

@@ -154,12 +154,12 @@ const Buchlers = () => {
 
   const navigate = useNavigate();
 
-  const handleWatch = (seasonId: any, episodeId: any) => {
-    setLastWatched({ season: seasonId, episode: episodeId });
-    localStorage.setItem("lastSeason", seasonId);
-    localStorage.setItem("lastEpisode", episodeId);
+  const handleWatch = (season: any, episode: any) => {
+    setLastWatched({ season: season.id, episode: episode.id });
+    localStorage.setItem("lastSeason", season.id);
+    localStorage.setItem("lastEpisode", episode.id);
 
-    navigate(`/watch?season=${seasonId}&episode=${episodeId}`);
+    navigate(`/watch?season=${season.name}&episode=${episode.title}`);
   };
   return (
     <div
@@ -304,7 +304,7 @@ const Buchlers = () => {
                   </p>
 
                   <button
-                    onClick={() => handleWatch(selectedSeason.id, ep.id)}
+                    onClick={() => handleWatch(selectedSeason, ep)}
                     style={{
                       padding: "8px 14px",
                       borderRadius: "8px",
